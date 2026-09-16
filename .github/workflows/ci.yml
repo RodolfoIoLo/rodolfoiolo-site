@@ -64,8 +64,11 @@ jobs:
           node-version-file: .node-version
           package-manager-cache: false
 
-      - name: Install pnpm
-        run: corepack install --global pnpm@11.19.0
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+          run_install: false
 
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
