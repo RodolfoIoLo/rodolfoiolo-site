@@ -62,6 +62,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version-file: .node-version
+          package-manager-cache: false
 
       - name: Install pnpm
         run: corepack install --global pnpm@11.19.0
