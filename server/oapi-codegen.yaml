@@ -1,0 +1,10 @@
+package: oapi
+output: generated/oapi/api.gen.go
+generate:
+  echo-server: true
+  strict-server: true
+  models: true
+  embedded-spec: true
+output-options:
+  skip-prune: true
+  name-normalizer: ToCamelCaseWithInitialisms
