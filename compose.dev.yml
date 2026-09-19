@@ -8,7 +8,9 @@ services:
       POSTGRES_USER: personal_site
       POSTGRES_PASSWORD: personal_site_dev
     ports:
-      - '127.0.0.1:5432:5432'
+      # 宿主机端口用 5433：本机已有一个原生 PostgreSQL 18 占着 5432。
+      # 容器内部仍是 5432，compose 网络内（如 migrate 服务）继续用 postgres:5432。
+      - '127.0.0.1:5433:5432'
     volumes:
       - postgres-dev-data:/var/lib/postgresql/data
     healthcheck:
