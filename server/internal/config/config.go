@@ -11,14 +11,15 @@ import (
 )
 
 type Config struct {
-	Environment      string
-	HTTPAddress      string
-	DatabaseURL      string
-	DatabaseMaxConns int32
-	DatabaseMinConns int32
-	DatabaseTimeout  time.Duration
-	PublicSiteURL    string
-	AllowedOrigins   []string
+	Environment       string
+	HTTPAddress       string
+	DatabaseURL       string
+	DatabaseMaxConns  int32
+	DatabaseMinConns  int32
+	DatabaseTimeout   time.Duration
+	PublicSiteURL     string
+	AllowedOrigins    []string
+	RefreshCookieName string
 }
 
 func Load() (Config, error) {
@@ -36,14 +37,15 @@ func Load() (Config, error) {
 	}
 
 	cfg := Config{
-		Environment:      environment("APP_ENV", "development"),
-		HTTPAddress:      environment("HTTP_ADDRESS", ":8080"),
-		DatabaseURL:      environment("DATABASE_URL", "postgres://personal_site:personal_site_dev@localhost:5433/personal_site?sslmode=disable"),
-		DatabaseMaxConns: maxConns,
-		DatabaseMinConns: minConns,
-		DatabaseTimeout:  timeout,
-		PublicSiteURL:    environment("PUBLIC_SITE_URL", "http://localhost:3000"),
-		AllowedOrigins:   splitEnvironment("ALLOWED_ORIGINS", []string{"http://localhost:3000"}),
+		Environment:       environment("APP_ENV", "development"),
+		HTTPAddress:       environment("HTTP_ADDRESS", ":8080"),
+		DatabaseURL:       environment("DATABASE_URL", "postgres://personal_site:personal_site_dev@localhost:5433/personal_site?sslmode=disable"),
+		DatabaseMaxConns:  maxConns,
+		DatabaseMinConns:  minConns,
+		DatabaseTimeout:   timeout,
+		PublicSiteURL:     environment("PUBLIC_SITE_URL", "http://localhost:3000"),
+		AllowedOrigins:    splitEnvironment("ALLOWED_ORIGINS", []string{"http://localhost:3000"}),
+		RefreshCookieName: environment("REFRESH_COOKIE_NAME", "refresh_token"),
 	}
 	if err := cfg.Validate(); err != nil {
 		return Config{}, err
@@ -72,6 +74,9 @@ func (c Config) Validate() error {
 	}
 	if len(c.AllowedOrigins) == 0 {
 		return errors.New("ALLOWED_ORIGINS must contain at least one origin")
+	}
+	if c.RefreshCookieName == "" || strings.ContainsAny(c.RefreshCookieName, " \t;=,") {
+		return errors.New("REFRESH_COOKIE_NAME must be a valid cookie name")
 	}
 	return nil
 }
