@@ -17,6 +17,8 @@ import (
 	"github.com/RodolfoIoLo/rodolfoiolo-site/server/internal/requestctx"
 )
 
+var _ oapi.StrictServerInterface = (*Handler)(nil)
+
 func (h *Handler) dispatch(ctx context.Context, operation string, rawRequest any) (*OperationResponse, error) {
 	switch operation {
 	case "ListCategories":
