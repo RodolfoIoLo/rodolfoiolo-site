@@ -85,7 +85,7 @@ func (r *ArticleRepository) Get(ctx context.Context, slug string, IncludePrivate
 	if IncludePrivate {
 		condition = "a.slug=$1"
 	}
-	return scanArticle(r.pool.QueryRow(ctx, articleSelect+"WHERE"+condition, slug))
+	return scanArticle(r.pool.QueryRow(ctx, articleSelect+" WHERE "+condition, slug))
 }
 
 func (r *ArticleRepository) Create(ctx context.Context, authorID int64, input domain.ArticleInput) (domain.Article, error) {

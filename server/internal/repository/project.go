@@ -90,7 +90,7 @@ func (r *ProjectRepository) Get(ctx context.Context, slug string, IncludePrivate
 	if IncludePrivate {
 		condition = "slug=$1"
 	}
-	return scanProject(r.pool.QueryRow(ctx, projectSelect+" WHERE"+condition, slug))
+	return scanProject(r.pool.QueryRow(ctx, projectSelect+" WHERE "+condition, slug))
 }
 
 func (r *ProjectRepository) Create(ctx context.Context, input domain.ProjectInput) (domain.Project, error) {
