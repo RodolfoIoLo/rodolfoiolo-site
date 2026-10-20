@@ -17,7 +17,7 @@ func NewSiteRepository(pool *pgxpool.Pool) *SiteRepository {
 	return &SiteRepository{pool: pool}
 }
 
-func (r *SiteRepository) GetSettinngs(ctx context.Context) (domain.SiteSettings, error) {
+func (r *SiteRepository) GetSettings(ctx context.Context) (domain.SiteSettings, error) {
 	var raw []byte
 	err := r.pool.QueryRow(ctx, `SELECT value FROM site_settings WHERE key='site' AND is_public=true`).Scan(&raw)
 	if err != nil {
@@ -30,7 +30,7 @@ func (r *SiteRepository) GetSettinngs(ctx context.Context) (domain.SiteSettings,
 	return settings, nil
 }
 
-func (r *SiteRepository) UPdateSettings(ctx context.Context, settings domain.SiteSettings, userID int64) error {
+func (r *SiteRepository) UpdateSettings(ctx context.Context, settings domain.SiteSettings, userID int64) error {
 	raw, err := json.Marshal(settings)
 	if err != nil {
 		return err
