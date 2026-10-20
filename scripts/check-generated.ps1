@@ -8,7 +8,7 @@ $repositoryRoot = Split-Path -Parent $PSScriptRoot
 
 Push-Location $repositoryRoot
 try {
-    git diff --exit-code -- 'server/generated/oapi/api.gen.go' 'web/types/openapi.d.ts'
+    git diff --exit-code -- 'server/generated/oapi/api.gen.go' 'server/internal/handler/adapter.gen.go' 'web/types/openapi.d.ts'
     if ($LASTEXITCODE -ne 0) {
         throw 'Generated contract files are stale. Run scripts/generate.ps1 and commit the result.'
     }

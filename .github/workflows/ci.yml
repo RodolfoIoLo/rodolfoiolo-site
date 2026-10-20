@@ -85,8 +85,7 @@ jobs:
         run: pnpm exec openapi-typescript docs/api/openapi.yaml --output web/types/openapi.d.ts
 
       - name: Fail on generated drift
-        run: git diff --exit-code -- server/generated/oapi/api.gen.go web/types/openapi.d.ts
-
+        run: git diff --exit-code -- server/generated/oapi/api.gen.go server/internal/handler/adapter.gen.go web/types/openapi.d.ts
   backend:
     name: Backend checks
     runs-on: ubuntu-latest

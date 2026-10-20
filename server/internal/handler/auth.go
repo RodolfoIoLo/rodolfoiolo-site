@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"errors"
+	"strings"
 	"time"
 
 	"github.com/RodolfoIoLo/rodolfoiolo-site/server/generated/oapi"
@@ -21,13 +22,37 @@ type AuthUseCases interface {
 }
 
 type Handler struct {
-	auth    AuthUseCases
-	cookies security.CookieManager
-	now     func() time.Time
+	auth         AuthUseCases
+	cookies      security.CookieManager
+	content      *service.ContentService
+	interactions *service.InteractionService
+	media        *service.MediaService
+	database     Pinger
+	publicURL    string
+	now          func() time.Time
+}
+
+type Dependencies struct {
+	Auth         AuthUseCases
+	Cookies      security.CookieManager
+	Content      *service.ContentService
+	Interactions *service.InteractionService
+	Media        *service.MediaService
+	Database     Pinger
+	PublicURL    string
+}
+
+func New(dependencies Dependencies) *Handler {
+	return &Handler{
+		auth: dependencies.Auth, cookies: dependencies.Cookies,
+		content: dependencies.Content, interactions: dependencies.Interactions,
+		media: dependencies.Media, database: dependencies.Database,
+		publicURL: strings.TrimRight(dependencies.PublicURL, "/"), now: time.Now,
+	}
 }
 
 func NewAuth(auth AuthUseCases, cookies security.CookieManager) *Handler {
-	return &Handler{auth: auth, cookies: cookies, now: time.Now}
+	return New(Dependencies{Auth: auth, Cookies: cookies})
 }
 
 func (h *Handler) Login(ctx context.Context, request oapi.LoginRequestObject) (oapi.LoginResponseObject, error) {
