@@ -1,6 +1,6 @@
 # Go 依赖管理规范
 
-> 适用范围：本仓库 `server/` 模块（Go 1.25）。
+> 适用范围：本仓库 `server/` 模块（Go 1.26）。
 > 依据：`go help mod` / `go help get` / `go help mod tidy` 等官方文档原文，以及本项目 [ADR-0006](../adr/0006-toolchain-baseline-2026.md) 的版本治理规则。
 > 本文件是参考指南，不参与 `docs/README.md` 定义的文档权威顺序。
 

@@ -14,16 +14,15 @@
 
 采用以下可重复工具链：
 
-| 工具                      |  固定版本 | 固定位置                                            |
-| ------------------------- | --------: | --------------------------------------------------- |
-| Node.js                   | `24.14.0` | 根目录 `.node-version`、CI                          |
-| pnpm                      | `11.19.0` | `web/package.json#packageManager`、Corepack、CI     |
-| Next.js / create-next-app |  `16.3.2` | 脚手架命令和 `web/package.json`                     |
-| Tailwind CSS              |   `4.3.3` | `web/package.json`；使用 CSS-first 配置             |
-| Go 语言版本               |  `1.25.0` | `server/go.mod` 的 `go` 指令                        |
-| Go 工具链                 |  `1.25.3` | `server/go.mod` 的 `toolchain` 指令、CI、Dockerfile |
+| 工具                      |  固定版本 | 固定位置                                        |
+| ------------------------- | --------: | ----------------------------------------------- |
+| Node.js                   | `24.14.0` | 根目录 `.node-version`、CI                      |
+| pnpm                      | `11.19.0` | `web/package.json#packageManager`、Corepack、CI |
+| Next.js / create-next-app |  `16.3.2` | 脚手架命令和 `web/package.json`                 |
+| Tailwind CSS              |   `4.3.3` | `web/package.json`；使用 CSS-first 配置         |
+| Go 语言和工具链           |  `1.26.0` | `server/go.mod` 的 `go` 指令、CI                |
 
-说明：Go 的 `go` 指令表达代码使用的最低语言语义，`toolchain` 指令表达默认构建工具链。二者分开可以避免把“语言特性版本”和“带安全/缺陷修复的补丁工具链”混为一谈。
+说明：Go 的 `go` 指令表达代码所需的最低语言和工具链版本，CI 通过 `server/go.mod` 读取同一版本。2026-10-26 合并的依赖更新要求 Go 1.26，因此不再保留已经失效的 Go 1.25 `toolchain` 指令。
 
 前端采用 Next.js 16 App Router 的静态导出 `output: 'export'`。公共页面在构建期生成；后台页面使用 Client Component，但仍被导出为静态入口。Tailwind CSS 4 使用 `app/globals.css` 中的 `@theme` 管理 Design Tokens，不再创建只为沿用 v3 习惯而存在的 `tailwind.config.ts`。
 
@@ -43,7 +42,7 @@
 - 新项目不从已经过期的运行时起步。
 - 本地、CI、容器使用一致工具链，降低“本机能跑、CI 失败”的概率。
 - Tailwind 4 的 CSS-first tokens 更适合后续视觉 DIY。
-- Go 依赖图已在 `go1.25.3 windows/amd64` 完成普通测试和构建验证，Linux race detector 由 CI 继续验证。
+- Go 依赖图由 `server/go.mod` 和 `server/go.sum` 固定，Linux race detector 由 CI 按 `go` 指令版本继续验证。
 
 ### 代价
 

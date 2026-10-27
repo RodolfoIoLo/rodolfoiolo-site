@@ -19,7 +19,7 @@ The repository is being built from zero by following `docs/taskbook/README.md`.
 
 - Node.js 24.14.0
 - pnpm 11.19.0
-- Go 1.25.3
+- Go 1.26.0
 - Docker Engine with Compose
 
 Do not invent setup steps from this short README. Use the taskbook.
