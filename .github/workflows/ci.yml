@@ -159,13 +159,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.19.0
+          run_install: false
+
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
-
-      - name: Install pnpm
-        run: corepack install --global pnpm@11.19.0
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
