@@ -151,3 +151,34 @@ jobs:
           go build -trimpath -o bin/api ./cmd/api
           go build -trimpath -o bin/admin ./cmd/admin
           go build -trimpath -o bin/keygen ./cmd/keygen
+  frontend:
+    name: Frontend checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.19.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm --dir web lint
+
+      - name: Type check
+        run: pnpm --dir web typecheck
+
+      - name: Check formatting
+        run: pnpm --dir web format:check

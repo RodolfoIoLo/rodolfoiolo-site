@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #18201d;
+  --color-paper: #f5f7f2;
+  --color-surface: #ffffff;
+  --color-muted: #5f6b65;
+  --color-line: #d6ddd7;
+  --color-moss: #2f6b4f;
+  --color-sky: #286581;
+  --color-coral: #a94739;
+  --font-sans: 'Noto Sans SC', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+}
+
+:root {
+  color-scheme: light;
+  --page-bg: #f5f7f2;
+  --panel-bg: rgba(255, 255, 255, 0.82);
+  --text: #18201d;
+  --text-muted: #5f6b65;
+  --border: rgba(24, 32, 29, 0.14);
+  --focus: #397b9c;
+  --shadow: 0 12px 30px rgba(22, 42, 32, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page-bg: #111714;
+    --panel-bg: rgba(21, 31, 26, 0.86);
+    --text: #eff4ef;
+    --text-muted: #abb8b0;
+    --border: rgba(239, 244, 239, 0.16);
+    --focus: #7fc4de;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-moss {
+    color: #7bc69d;
+  }
+  .text-sky {
+    color: #7fc4de;
+  }
+  .text-coral {
+    color: #ef9b8d;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.glass {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel-bg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px) saturate(120%);
+}
+.prose {
+  max-width: 72ch;
+}
+.prose h2,
+.prose h3 {
+  font-family: var(--font-display);
+  line-height: 1.25;
+}
+.prose pre {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  background: #101714;
+  color: #eef6ef;
+}
+.prose code {
+  font-family: var(--font-mono);
+}
+.prose :not(pre) > code {
+  border-radius: 4px;
+  padding: 0.12rem 0.34rem;
+  background: color-mix(in srgb, var(--text) 9%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
