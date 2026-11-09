@@ -9,6 +9,15 @@ updates:
       timezone: Asia/Shanghai
     open-pull-requests-limit: 5
     versioning-strategy: increase-if-necessary
+    ignore:
+      # Remove once eslint-config-next's React plugin supports ESLint 10.
+      # https://github.com/jsx-eslint/eslint-plugin-react/issues/3977
+      - dependency-name: eslint
+        versions: ['10.x']
+      # Remove once typescript-eslint supports the TypeScript 7 compiler API.
+      # https://typescript-eslint.io/users/dependency-versions/
+      - dependency-name: typescript
+        versions: ['7.x']
     groups:
       frontend-minor-patch:
         update-types:
