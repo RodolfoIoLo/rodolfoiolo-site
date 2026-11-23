@@ -7,7 +7,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/gosimple/slug v1.15.0
 	github.com/jackc/pgx/v5 v5.13.0
-	github.com/labstack/echo/v4 v4.16.4
+	github.com/labstack/echo/v4 v4.16.5
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/oapi-codegen/runtime v1.8.0
 	github.com/stretchr/testify v1.12.1
